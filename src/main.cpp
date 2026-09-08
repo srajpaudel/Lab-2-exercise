@@ -140,6 +140,9 @@ struct Bullet : public sf::Drawable {
         // =====
         // TODO: Implement bullet update mechanics. In detail:
         //  - Move bullet's shape using bullet's velocity
+        
+
+
         //  - Decrease bullet lifetime by 1.0f / 60.0f (60 FPS)
         //  - Mark bullets as dead (bullet.isAlive = false) if:
         //      - lifetime <= 0.0f, or
@@ -240,10 +243,14 @@ public:
         //  1. our texture has the top of the ship at 90 degrees from the x axis
         //  2. SFML's coordinate system has y axis pointing down.
         mSpaceship.setRotation(sf::radians(angleRadians + M_PI / 2));
+        
         // --- Shooting ---
         // =====
         // TODO: Implement shooting mechanics, keeping in mind the shooting cooldown. In detail:
+        
         //  - Consider whether the user wants to shoot, and also the cooldown.
+
+
         //  - Bullet direction is the same as the spaceship's facing direction.
         //  - Bullet should be shot from the current spaceship position.
 
@@ -294,8 +301,9 @@ private:
                                      asteroid.shape.getPosition(), asteroid.shape.getRadius())) {
                     bullet.isAlive = false;
                     asteroid.isAlive = false;
-                    // TODO: Add Explosion Sound Effect
+            
                     // Play explosion sound!
+                    mExplosionSound.play();
 
                     break;  // Bullet can only hit one asteroid
                 }
@@ -310,6 +318,15 @@ private:
             // TODO: Use Circle-Circle intersection test (circlesIntersect)
             // to determine if the spaceship's hitbox collides with an asteroid.
             // If so, kill the asteroid and play an explosion sound.
+            if (circlesIntersect(mSpaceship.getPosition(), mSpaceship.hitboxRadius(),
+                                asteroid.shape.getPosition(), asteroid.shape.getRadius())) {
+                
+                asteroid.isAlive = false;
+
+                // Play exploision sound
+                mExplosionSound.play();
+
+                }
         }
     }
 
