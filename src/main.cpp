@@ -313,7 +313,8 @@ private:
             if (!bullet.isAlive) continue;
             for (auto& asteroid : mAsteroids) {
                 if (!asteroid.isAlive) continue;
-                // Check if bullet circle intersects with asteroid circle
+                // If bullet circle intersects with asteroid circle
+                // kill both asteroid & the bullet
                 if (circlesIntersect(bullet.shape.getPosition(), bullet.shape.getRadius(),
                                      asteroid.shape.getPosition(), asteroid.shape.getRadius())) {
                     bullet.isAlive = false;
@@ -331,13 +332,12 @@ private:
     void processCollisionsSpaceshipAsteroid() {
         for (auto& asteroid : mAsteroids) {
             if (!asteroid.isAlive) continue;
-            // =====
-            // TODO: Use Circle-Circle intersection test (circlesIntersect)
-            // to determine if the spaceship's hitbox collides with an asteroid.
-            // If so, kill the asteroid and play an explosion sound.
+     
+            // Use Circle-Circle intersection test (circlesIntersect)
+            // If the spaceship's hitbox collides with an asteroid,
+            // Kill the asteroid
             if (circlesIntersect(mSpaceship.getPosition(), mSpaceship.hitboxRadius(),
                                 asteroid.shape.getPosition(), asteroid.shape.getRadius())) {
-                
                 asteroid.isAlive = false;
 
                 // Play explosion sound
@@ -366,12 +366,15 @@ private:
     }
 
     void cleanupDeadBullets() {
-        // =====
-        // TODO: What should we do with dead bullet objects? Just keep them lying around taking up
-        // space in memory?
-
-       
-
+        // remove dead bullets from Bullet vector to better allocate memory
+        std::vector<Bullet> aux;
+        aux.reserve(mBullets.size());
+        for (const auto& bullet: mBullets) {
+            if (bullet.isAlive) {
+                aux.push_back(bullet);
+            }
+        }
+        aux.swap(mBullets);
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
