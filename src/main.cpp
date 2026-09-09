@@ -260,7 +260,7 @@ public:
             // get the spaceship facing direction
             sf::Vector2f bulletDirection = facingVector.normalized();
     
-            // Create new bullet to shoot from current spaceship position & direction
+            // Spawn new bullet to shoot from current spaceship position & direction
             mBullets.emplace_back(
                 mSpaceship.getPosition(),
                 bulletDirection * BULLET_SPEED
@@ -369,6 +369,9 @@ private:
         // =====
         // TODO: What should we do with dead bullet objects? Just keep them lying around taking up
         // space in memory?
+
+       
+
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
