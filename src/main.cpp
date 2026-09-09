@@ -137,16 +137,13 @@ struct Bullet : public sf::Drawable {
     }
 
     void update() {
-        
-        // TODO: Implement bullet update mechanics. In detail:
-        
         //  - Move bullet's shape using bullet's velocity
-        
+        shape.move(velocity);
         
         //  - Decrease bullet lifetime by 1.0f / 60.0f (60 FPS)
         lifetime -= (1.0f / 60.0f);
 
-        //  Mark bullets as dead
+        //  Mark bullets as dead if lifetime reaches 0 or below
         if (lifetime <= 0.0f) 
         {
             shape.isAlive = false;
