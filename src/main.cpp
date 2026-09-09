@@ -146,14 +146,14 @@ struct Bullet : public sf::Drawable {
         //  Mark bullets as dead if lifetime reaches 0 or below
         if (lifetime <= 0.0f) 
         {
-            shape.isAlive = false;
+            isAlive = false;
         }
 
         //  Kill bullet if it goes off screen
         if (shape.getPosition().x < 0 || shape.getPosition().x > WINDOW_WIDTH ||
             shape.getPosition().y < 0 || shape.getPosition().y > WINDOW_HEIGHT)
         {
-            shape.isAlive = false;
+            isAlive = false;
         }
 
     }
@@ -256,7 +256,7 @@ public:
         // TODO: Implement shooting mechanics, keeping in mind the shooting cooldown. In detail:
         
         //  - Consider whether the user wants to shoot, and also the cooldown.
-        if (inputSummary.shootingDesired) 
+        if (inputSummary.shootingDesired && ) 
         {
             ;
         //  - Bullet direction is the same as the spaceship's facing direction.
