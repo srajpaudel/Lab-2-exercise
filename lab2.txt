@@ -4,3 +4,4 @@ Q1. SFML's coordinate system has (0,0) at the top-left with the x-axis increasin
 Due to the y-axis moving in an opposite direction from the typical cartesian plane where y-axis increases upwards, 
 the angle in SFML will rotate in the opposite direction from the cartesian plane.
 
+Q2. The benefit of this approach is that this design allows GameState to control how its own state is modified and keeps the events separate from the GameState, which improves encapsulation.
