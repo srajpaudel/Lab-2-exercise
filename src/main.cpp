@@ -137,17 +137,28 @@ struct Bullet : public sf::Drawable {
     }
 
     void update() {
-        // =====
+        
         // TODO: Implement bullet update mechanics. In detail:
+        
         //  - Move bullet's shape using bullet's velocity
         
-
-
+        
         //  - Decrease bullet lifetime by 1.0f / 60.0f (60 FPS)
-        //  - Mark bullets as dead (bullet.isAlive = false) if:
-        //      - lifetime <= 0.0f, or
-        //      - bullet is off screen (use shape.getPosition() and
-        //        WINDOW_WIDTH and WINDOW_HEIGHT)
+        lifetime -= (1.0f / 60.0f);
+
+        //  Mark bullets as dead
+        if (lifetime <= 0.0f) 
+        {
+            shape.isAlive = false;
+        }
+
+        //  Kill bullet if it goes off screen
+        if (shape.getPosition().x < 0 || shape.getPosition().x > WINDOW_WIDTH ||
+            shape.getPosition().y < 0 || shape.getPosition().y > WINDOW_HEIGHT)
+        {
+            shape.isAlive = false;
+        }
+
     }
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override {
@@ -245,14 +256,16 @@ public:
         mSpaceship.setRotation(sf::radians(angleRadians + M_PI / 2));
         
         // --- Shooting ---
-        // =====
         // TODO: Implement shooting mechanics, keeping in mind the shooting cooldown. In detail:
         
         //  - Consider whether the user wants to shoot, and also the cooldown.
-
-
+        if (inputSummary.shootingDesired) 
+        {
+            ;
         //  - Bullet direction is the same as the spaceship's facing direction.
         //  - Bullet should be shot from the current spaceship position.
+        }
+
 
         // --- Update Asteroids ---
         for (auto& asteroid : mAsteroids) {
@@ -323,7 +336,7 @@ private:
                 
                 asteroid.isAlive = false;
 
-                // Play exploision sound
+                // Play explosion sound
                 mExplosionSound.play();
 
                 }
