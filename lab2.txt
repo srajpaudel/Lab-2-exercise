@@ -1,2 +1,6 @@
 Answer written questions 1 and 2 here.
 
+Q1. SFML's coordinate system has (0,0) at the top-left with the x-axis increasing to the right and the y-axis increasing downwards. 
+Due to the y-axis moving in an opposite direction from the typical cartesian plane where y-axis increases upwards, 
+the angle in SFML will rotate in the opposite direction from the cartesian plane.
+
