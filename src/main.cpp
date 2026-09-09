@@ -253,14 +253,21 @@ public:
         mSpaceship.setRotation(sf::radians(angleRadians + M_PI / 2));
         
         // --- Shooting ---
-        // TODO: Implement shooting mechanics, keeping in mind the shooting cooldown. In detail:
-        
-        //  - Consider whether the user wants to shoot, and also the cooldown.
-        if (inputSummary.shootingDesired && ) 
+        //  - Consider whether the player wants to shoot and if the cooldown period has ended (100ms)
+        if (inputSummary.shootingDesired && mShootClock.getElapsedTime().asSeconds() >= SHOOT_COOLDOWN) 
         {
-            ;
-        //  - Bullet direction is the same as the spaceship's facing direction.
-        //  - Bullet should be shot from the current spaceship position.
+
+            // get the spaceship facing direction
+            sf::Vector2f bulletDirection = facingVector.normalized();
+    
+            // Create new bullet to shoot from current spaceship position & direction
+            mBullets.emplace_back(
+                mSpaceship.getPosition(),
+                bulletDirection * BULLET_SPEED
+            );
+
+            // Restart the shooting timer
+            mShootClock.restart();
         }
 
 
